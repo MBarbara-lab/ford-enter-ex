@@ -1,5 +1,5 @@
 class Carousel {
-    constructor (content) {
+    constructor(content) {
         this.img = document.getElementById("carousel-img");
         this.link = document.getElementById("carousel-link");
         this.title = document.getElementById("carousel-title");
@@ -7,29 +7,71 @@ class Carousel {
         this.index = 0;
     }
 
-    uploadValue() {
+    uploadElement() {
         this.img.src = content[this.index].imageSrc;
         this.img.alt = content[this.index].imageAlt;
         this.link = "../lançamento";
         this.title.textContent = content[this.index].title;
     }
 
-    start(interval) {
-        this.uploadValue();
-        this.next();
+    dinamicIndex(condition, incremento) {
+        if (this.index === condition) {
+            this.index = 0;
+            return;
+        }
+        incremento;
+    }
 
-        setInterval( () => {
-            this.uploadValue()
-            this.next();
+    start(interval) {
+        this.uploadElement();
+        if (this.index === this.content.length - 1) {
+            this.index = 0;
+            return;
+        }
+        this.index++;
+
+        const timerCarousel = setInterval(() => {
+            this.uploadElement();
+            if (this.index === this.content.length - 1) {
+                this.index = 0;
+                return;
+            }
+            this.index++;
         }, interval);
+
+        const btnStop = document.querySelector(".btn-stop");
+        btnStop.addEventListener("click", () => {
+            clearInterval(timerCarousel);
+        })
     }
 
     next() {
-        if (this.index < this.content.length - 1) {
+        const btnNext = document.querySelector(".btn-next");
+        btnNext.addEventListener("click", () => {
+            if (this.index === this.content.length - 1) {
+                this.index = 0;
+                // return;
+            } else {
+                console.log(this.index);
             this.index++;
-            return;
-        }
-        this.index = 0;
+            }
+            this.uploadElement();
+        })
+    }
+
+    back() {
+        const btnBack = document.querySelector(".btn-back");
+        btnBack.addEventListener("click", () => {
+            if (this.index === 0) {
+                this.index = 2;
+                // return;
+            } else {
+                console.log(this.index);
+                this.index--;
+            }
+            this.uploadElement();
+            
+        })
     }
 }
 
