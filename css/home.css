@@ -30,6 +30,7 @@
     background-image: url("../img/arrow.png");
     background-size: cover;
     border: none;
+    visibility: hidden;
 }
 
 .btn-back {
@@ -39,6 +40,11 @@
 .main-home__img {
     display: flex;
     width: 60vw;
+    transition: scale 0.5s;
+}
+
+.main-home__img:hover {
+    scale: 1.01;
 }
 
 .btn-next {

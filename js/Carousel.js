@@ -38,30 +38,29 @@ class Carousel {
             }
             this.index++;
         }, interval);
+        
 
         const btnStop = document.querySelector(".btn-stop");
         btnStop.addEventListener("click", () => {
             clearInterval(timerCarousel);
+            btnBack.style.visibility = "visible";
+            btnNext.style.visibility = "visible";
+            btnStop.style.display = "none";
         })
     }
 
     next() {
-        const btnNext = document.querySelector(".btn-next");
-        btnNext.addEventListener("click", () => {
             if (this.index === this.content.length - 1) {
                 this.index = 0;
                 // return;
             } else {
                 console.log(this.index);
-            this.index++;
+                this.index++;
             }
             this.uploadElement();
-        })
-    }
+        }
 
     back() {
-        const btnBack = document.querySelector(".btn-back");
-        btnBack.addEventListener("click", () => {
             if (this.index === 0) {
                 this.index = 2;
                 // return;
@@ -71,8 +70,7 @@ class Carousel {
             }
             this.uploadElement();
             
-        })
-    }
+        }
 }
 
 const content = [
@@ -95,3 +93,12 @@ const content = [
 
 const carousel = new Carousel(content);
 carousel.start(2000);
+
+const btnNext = document.querySelector(".btn-next");
+btnNext.addEventListener("click", () => {
+    carousel.next()
+});
+
+const btnBack = document.querySelector(".btn-back");
+btnBack.addEventListener("click", () => {
+    carousel.back()});
